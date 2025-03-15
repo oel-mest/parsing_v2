@@ -47,9 +47,14 @@ void print_tokens(t_token *tokens) {
     }
 }
 
+void    check_leaks()
+{
+    system("leaks a.out");
+}
 
 int main(int argc, char *argv[], char *envp[])
-{  
+{ 
+    //atexit(check_leaks);
     EnvNode *head = NULL;
 
     for (int i = 0; envp[i] != NULL; i++)

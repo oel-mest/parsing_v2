@@ -6,7 +6,7 @@
 /*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 22:48:30 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/02/18 22:48:48 by oel-mest         ###   ########.fr       */
+/*   Updated: 2025/03/15 01:15:09 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,10 @@ void	free_output_list(t_output *output_list)
 	while (output_list)
 	{
 		t_output *next = output_list->next;
-		free(output_list->file); // Free the filename
-		free(output_list);       // Free the node itself
+		if (output_list->file != NULL)
+			free(output_list->file); // Free the filename if it exists
+		if (output_list != NULL)
+			free(output_list);           // Free the node itself
 		output_list = next;
 	}
 }
@@ -51,7 +53,7 @@ void	free_redi(t_redi *redi)
 	if (!redi)
 		return;
 
-	// Free the input, output, and heredoc linked lists
+	// Free the input, output, and heredoc linked lists (safe to pass NULL)
 	free_output_list(redi->input);
 	free_output_list(redi->output);
 	free_output_list(redi->heredoc);
@@ -92,7 +94,7 @@ void	free_ast(t_ast *ast)
 		free_cmd(ast->cmd);
 
 	// Free the t_redi structure (if it exists)
-	if (ast->redi)
+	if (ast->type == NODE_SUB)
 		free_redi(ast->redi);
 
 	// Free the t_ast structure itself
