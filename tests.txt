@@ -1,0 +1,38 @@
+# Valid commands
+(echo "Hello") && echo "World"
+(echo "A" || echo "B") && echo "C"
+(echo "Start" && (echo "Middle" || echo "Fail")) && echo "End"
+(echo "Pipe example" | grep "example") && echo "Pipe worked"
+(echo "One" && (echo "Two" | grep "Two")) || echo "Failed"
+(echo "Outer" && (echo "Inner" || echo "Inner failed")) && echo "Done"
+(echo "A" || (echo "B" && echo "C")) | grep "A"
+(echo "First" && (echo "Second" || (echo "Third" && echo "Fourth"))) || echo "Failed"
+(echo "Hello" || echo "Fail") | grep "Hello"
+(echo "A" && echo "B") || (echo "C" | grep "C")
+(echo "Start" && (echo "Middle" | grep "Middle")) || echo "End"
+(echo "A" && echo "B") || (echo "C" && echo "D")
+(echo "One" | grep "One") && (echo "Two" || echo "Three")
+(echo "Start" && (echo "Middle" | grep "Middle")) || (echo "End" && echo "Done")
+(echo "Hello" > output.txt) && cat output.txt
+
+
+(echo "A" || echo "B") > output.txt && cat output.txt.    /// here
+
+
+
+(echo "Start" && (echo "Middle" > output.txt)) || echo "End"
+
+# Commands with syntax errors (unclosed parentheses or invalid syntax)
+(echo "Hello" && echo "World"
+(echo "A" || (echo "B" && echo "C")
+(echo "Start" && (echo "Middle" || echo "Fail")
+(echo "Pipe example" | grep "example"
+(echo "A" && echo "B" || echo "C"
+(echo "Hello" echo "World")
+
+
+
+(echo "A" || echo "B" &&).    /here
+(echo "Start" && | echo "Middle").  /here
+
+
