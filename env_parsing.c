@@ -13,8 +13,6 @@ EnvNode *create_node(const char *env_entry)
     size_t name_len;
 
     node = malloc(sizeof(EnvNode));
-    if (!node)
-        ft_exit_f("malloc error");
     eq = strchr(env_entry, '=');
     if (eq == NULL)
     {
