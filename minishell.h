@@ -91,6 +91,8 @@ t_ast *create_ast_node(t_node_type type, int inpar);
 t_cmd *create_cmd_node();
 void add_argument(t_cmd *cmd, const t_token *token);
 
+
+
 t_ast *parse_command(t_token **tokens, int inpar);
 void	handle_heredoc(t_cmd **cmd, t_token **tokens);
 void	handle_redirect_out(t_cmd **cmd, t_token **tokens);
@@ -104,6 +106,8 @@ t_ast *parse(t_token *tokens);
 
 void free_cmd(t_cmd *cmd);
 void free_ast(t_ast *node);
+void	free_tokens(t_token *tokens);
+void	free_env_list(EnvNode *env_list);
 
 void print_indentation(int depth, int is_last);
 void print_cmd(t_cmd *cmd, int depth, int is_last, EnvNode *head);
@@ -128,4 +132,8 @@ char *expand_env_vars(char *args, EnvNode *env_list);
 
 void parse_redirection(t_token **tokens, t_ast *ast);
 int	is_redirection_token(t_token *token);
+
+t_token *create_token(const char *value, t_token_type type, int l_space);
+void append_token(t_token **head, t_token *new_token);
+t_token *tokenize(const char *input);
 #endif
