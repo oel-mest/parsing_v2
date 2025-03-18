@@ -6,7 +6,7 @@
 /*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 22:45:00 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/02/19 15:30:49 by oel-mest         ###   ########.fr       */
+/*   Updated: 2025/03/16 23:23:29 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ t_ast *create_ast_node(t_node_type type, int inpar)
     t_ast *node;
 
     node = malloc(sizeof(t_ast));
+    if (node == NULL)
+    {
+        perror("Malloc error");
+        exit(EXIT_FAILURE);
+    }
     node->type = type;
     node->cmd = NULL;
     node->left = NULL;
@@ -38,6 +43,11 @@ t_cmd *create_cmd_node()
     t_cmd *cmd;
 
     cmd = malloc(sizeof(t_cmd));
+    if (cmd == NULL)
+    {
+        perror("Malloc error");
+        exit(EXIT_FAILURE);
+    }
     cmd->args = NULL;
     cmd->input = NULL;
     cmd->output = NULL;

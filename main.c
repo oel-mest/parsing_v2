@@ -54,7 +54,7 @@ void    check_leaks()
 
 int main(int argc, char *argv[], char *envp[])
 { 
-    //atexit(check_leaks);
+    atexit(check_leaks);
     EnvNode *head = NULL;
 
     for (int i = 0; envp[i] != NULL; i++)
@@ -68,15 +68,18 @@ int main(int argc, char *argv[], char *envp[])
 	{
         add_history(line);
 		t_token *tokens = tokenize(line);
-		print_tokens(tokens);
-        //expand_tokens(tokens, head);
-        //printf("Expanded version\n");
-        //print_tokens(tokens);
-		t_ast *ast = parse(tokens);
-		free_tokens(tokens);
-		free(line);
-		print_ast_tree(ast, head);
-		free_ast(ast);
+        if (tokens != NULL)
+        {
+            print_tokens(tokens);
+            t_ast *ast = parse(tokens);
+            free_tokens(tokens);
+            free(line);
+            if (ast != NULL)
+            {
+                print_ast_tree(ast, head);
+                free_ast(ast);
+            }
+        }
         free_env_list(head);
 		line = NULL;
 	}

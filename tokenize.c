@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void    handle_quotes(const char *input, int *i, t_token **tokens, int *has_space)
+int    handle_quotes(const char *input, int *i, t_token **tokens, int *has_space)
 {
     char    quote;
     int     start;
@@ -15,8 +15,8 @@ void    handle_quotes(const char *input, int *i, t_token **tokens, int *has_spac
         (*i)++;
     if (input[*i] != quote)
     {
-        fprintf(stderr, "Error: Unclosed quote\n");
-        return;
+        fprintf(stderr, "minishell: syntax error (unclosed quote))\n");
+        return (1);
     }
     length = *i - start + 1;
     substr = malloc(length + 1);
@@ -35,6 +35,7 @@ void    handle_quotes(const char *input, int *i, t_token **tokens, int *has_spac
     free(substr);
     (*i)++;
     *has_space = 0;
+    return (0);
 }
 
 void    handle_word(const char *input, int *i, t_token **tokens, int *has_space)
@@ -69,7 +70,7 @@ void    handle_word(const char *input, int *i, t_token **tokens, int *has_space)
     }
 }
 
-void    handle_parentheses(const char *input, int *i, t_token **tokens, int *has_space)
+void    handle_token_parentheses(const char *input, int *i, t_token **tokens, int *has_space)
 {
     char    *token_value;
     int     token_type;
@@ -181,7 +182,7 @@ void    handle_redirections(const char *input, int *i, t_token **tokens, int *ha
 void handle_special_tokens(const char *input, int *i, t_token **tokens, int *has_space)
 {
     if (input[*i] == '(' || input[*i] == ')')
-        handle_parentheses(input, i, tokens, has_space);
+        handle_token_parentheses(input, i, tokens, has_space);
     else if (input[*i] == '|' || input[*i] == '&')
         handle_pipes_and_logicals(input, i, tokens, has_space);
     else if (input[*i] == '<' || input[*i] == '>')
@@ -207,7 +208,13 @@ t_token *tokenize(const char *input)
         if (!input[i])
             break;
         if (input[i] == '\'' || input[i] == '"')
-            handle_quotes(input, &i, &tokens, &has_space);
+        {
+            if (handle_quotes(input, &i, &tokens, &has_space))
+            {
+                free_tokens(tokens);
+                return (NULL);
+            }
+        }
         else if (input[i] == '(' || input[i] == ')' ||
                  input[i] == '|' || input[i] == '&' ||
                  input[i] == '<' || input[i] == '>')

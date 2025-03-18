@@ -6,7 +6,7 @@
 /*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 21:59:27 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/02/20 17:54:11 by oel-mest         ###   ########.fr       */
+/*   Updated: 2025/03/18 00:01:42 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void add_argument(t_cmd *cmd, const t_token *token);
 
 
 t_ast *parse_command(t_token **tokens, int inpar);
-void	handle_heredoc(t_cmd **cmd, t_token **tokens);
-void	handle_redirect_out(t_cmd **cmd, t_token **tokens);
-void	handle_redirect_in(t_cmd **cmd, t_token **tokens);
+int	handle_heredoc(t_cmd **cmd, t_token **tokens);
+int	handle_redirect_out(t_cmd **cmd, t_token **tokens);
+int	handle_redirect_in(t_cmd **cmd, t_token **tokens);
 void	handle_word_or_quote(t_cmd **cmd, t_token **tokens);
 int	is_word_or_quote(t_token_type type);
 
@@ -130,10 +130,13 @@ void free_list(EnvNode *head);
 void    expand_tokens(t_token *tokens, EnvNode *head);
 char *expand_env_vars(char *args, EnvNode *env_list);
 
-void parse_redirection(t_token **tokens, t_ast *ast);
+int parse_redirection(t_token **tokens, t_ast *ast);
 int	is_redirection_token(t_token *token);
 
 t_token *create_token(const char *value, t_token_type type, int l_space);
 void append_token(t_token **head, t_token *new_token);
 t_token *tokenize(const char *input);
+t_ast	*handle_parentheses(t_token **tokens, int inpar);
+
+int	is_word_or_quote(t_token_type type);
 #endif

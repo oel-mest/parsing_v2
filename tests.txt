@@ -36,3 +36,53 @@
 (echo "Start" && | echo "Middle").  /here
 
 
+tokenize stops when error 
+parse ast stops when parsing error
+and norminette
+
+echo "Hello world
+echo 'Hello world
+echo "Hello world && ls
+&& ls
+ls &&
+ls ||
+ls || cat file
+ls && && cat file
+| ls
+ls |
+ls | | cat file
+ls | && cat file
+ls >
+ls <
+ls >>
+ls <<
+ls > > file
+ls < < file
+ls > | cat
+ls > && cat file
+ls && > file
+ls || > file
+ls | > file
+ls > file &&
+ls < file ||
+ls > file | cat
+echo (Hello
+echo {Hello
+echo [Hello
+ls && > file || cat file
+ls | > file
+ls > file | cat
+ls < file >
+ 
+&&
+||
+|
+>
+<
+ls > file &&
+ls < file ||
+ls > file && > file2
+ls > file > file2
+ls < file < file2
+ls > file | cat < file2
+ls > file && < file2 cat
