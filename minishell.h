@@ -6,7 +6,7 @@
 /*   By: oel-mest <oel-mest@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/18 21:59:27 by oel-mest          #+#    #+#             */
-/*   Updated: 2025/03/18 00:01:42 by oel-mest         ###   ########.fr       */
+/*   Updated: 2025/03/18 01:52:10 by oel-mest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ void add_node(EnvNode **head, EnvNode *new_node);
 EnvNode *create_node(const char *env_entry);
 void free_list(EnvNode *head);
 
-void    expand_tokens(t_token *tokens, EnvNode *head);
 char *expand_env_vars(char *args, EnvNode *env_list);
 
 int parse_redirection(t_token **tokens, t_ast *ast);

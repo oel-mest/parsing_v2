@@ -9,13 +9,16 @@ char *read_input(void)
         free(line);
         return NULL;
     }
-    return line;
+    return (line);
 }
 
 t_token *create_token(const char *value, t_token_type type, int l_space)
 {
-    t_token *token = malloc(sizeof(t_token));
-    if (!token) {
+    t_token *token;
+
+    token = malloc(sizeof(t_token));
+    if (!token)
+    {
         perror("malloc");
         exit(EXIT_FAILURE);
     }
@@ -23,25 +26,13 @@ t_token *create_token(const char *value, t_token_type type, int l_space)
     token->type = type;
     token->next = NULL;
     token->has_space = l_space;
-    return token;
+    return (token);
 }
 
-void append_token(t_token **head, t_token *new_token)
+void print_tokens(t_token *tokens)
 {
-    if (!*head) {
-        *head = new_token;
-    } else {
-        t_token *temp = *head;
-        while (temp->next)
-            temp = temp->next;
-        temp->next = new_token;
-    }
-}
-
-/* Helper: Free the tokens list */
-
-void print_tokens(t_token *tokens) {
-    while (tokens) {
+    while (tokens)
+    {
         printf("Token: %-10s Type: %d\tspaceb : %d\n", tokens->value, tokens->type, tokens->has_space);
         tokens = tokens->next;
     }
@@ -80,8 +71,8 @@ int main(int argc, char *argv[], char *envp[])
                 free_ast(ast);
             }
         }
-        free_env_list(head);
-		line = NULL;
+        //free_env_list(head);
+		line = read_input();
 	}
     return EXIT_SUCCESS;
 }
